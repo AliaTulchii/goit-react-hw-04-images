@@ -28,7 +28,7 @@ const App = () => {
               .then(({ hits, totalHits }) => {
                 if (!hits.length) {
                   setIsEmpty(true);
-                  // this.setState({ isEmpty: true })
+                  
                   return
                 }
                 setImages((prevImages) => [...prevImages, ...hits]);

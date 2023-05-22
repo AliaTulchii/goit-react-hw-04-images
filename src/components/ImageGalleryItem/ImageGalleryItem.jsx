@@ -2,12 +2,12 @@ import css from './ImageGalleryItem.module.css'
 import PropTypes from 'prop-types'
 
 function ImageGalleryItem({ url, alt, showModal, largeImage})  {
-    const newLargeImage = {
-        largeImage: largeImage,
-    }
+    // const newLargeImage = {
+    //     largeImage: largeImage,
+    // }
    
     return (
-        <li  className={css.ImageGalleryItem} onClick={()=>showModal(newLargeImage)}>
+        <li  className={css.ImageGalleryItem} onClick={()=>showModal(largeImage)}>
             
                 <img
                     src={url}
