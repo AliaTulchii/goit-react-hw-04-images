@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Searchbar from "./Searchbar/Searchbar"
 import { getImages } from '../service/image-api.js'
 import ImageGallery from './ImageGallery/ImageGallery';
@@ -18,26 +18,25 @@ const App = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [largeImage, setLargeImage] = useState('');
 
-  if (!query || !page) {
-    setLoading(true);
-
-    getImages(query, page)
-            .then(({ hits, totalHits }) => {
-              if (!hits.length) {
-                setIsEmpty(true);
-                // this.setState({ isEmpty: true })
-                return
-              }
-              setImages((prevImages) => [...prevImages, ...hits]);
-              setShowLoadMore(() => page < Math.ceil(totalHits / 15));
-              setLargeImage(hits.largeImageUrl);
-              // this.setState(({ images }) => ({
-              //   images: [...images, ...hits],
-              //   showLoadMore: page < Math.ceil(totalHits / 15),
-              //   largeImage: hits.largeImageUrl,
-              // }))
-            }).finally(() => setLoading(false));
-  }
+  useEffect(() => {
+    if (!query || !page) {
+      return;
+    }
+      setLoading(true);
+  
+      getImages(query, page)
+              .then(({ hits, totalHits }) => {
+                if (!hits.length) {
+                  setIsEmpty(true);
+                  // this.setState({ isEmpty: true })
+                  return
+                }
+                setImages((prevImages) => [...prevImages, ...hits]);
+                setShowLoadMore(page < Math.ceil(totalHits / 15));
+                setLargeImage(hits.largeImageUrl);
+              }).finally(() => setLoading(false));
+    
+  },[page, query])
 
 
   
@@ -45,15 +44,15 @@ const App = () => {
     
     const  handleSubmit = (newQuery) => {
         if (query !== newQuery) {
-          setQuery({ query });
-          setImages({ images: [] });
-          setPage({page: 1})
+          setQuery(newQuery );
+          setImages( [] );
+          setPage(1)
         }
         
       }
     
   const handleLoadMore = () => {
-    setPage((prevPage) => prevPage + 1);
+    setPage(prevPage => prevPage + 1);
         
       }
     
@@ -63,9 +62,9 @@ const App = () => {
       }
     
   const showModal = (url) => {
-        setLargeImage(true)
+    setLargeImage(url);
 
-        toggleModal();
+    toggleModal();
       }
     
 

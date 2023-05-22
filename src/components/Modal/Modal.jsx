@@ -22,7 +22,7 @@ const Modal = ({largeImage,onClose}) => {
       
     
       const handleBackdrop = e => {
-            if (e.target === e.currentTarget) {
+            if (e.target !== e.currentTarget) {
               onClose();
             }
           };
