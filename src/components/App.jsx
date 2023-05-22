@@ -63,7 +63,7 @@ const App = () => {
     
   const showModal = (url) => {
     setLargeImage(url);
-
+    console.log(url);
     toggleModal();
       }
     
