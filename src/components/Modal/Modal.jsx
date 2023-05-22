@@ -4,8 +4,9 @@ import PropTypes from 'prop-types'
 
 
 const Modal = ({largeImage,onClose}) => {
-
+  console.log(largeImage);
   useEffect(() => {
+    
     const handleKeydown = e => {
       if (e.code === 'Escape') {
         onClose();
@@ -16,6 +17,7 @@ const Modal = ({largeImage,onClose}) => {
       window.removeEventListener('keydown', handleKeydown);
     }
   }, [onClose]);
+  
 
   
     
